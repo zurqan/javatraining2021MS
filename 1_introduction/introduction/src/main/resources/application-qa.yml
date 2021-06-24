@@ -1,0 +1,8 @@
+com:
+  training:
+    messaging:
+
+      ar:
+        enabled: false
+      en:
+        enabled: true
