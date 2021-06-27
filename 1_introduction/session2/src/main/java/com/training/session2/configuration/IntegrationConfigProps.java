@@ -19,4 +19,6 @@ public class IntegrationConfigProps {
     private long timeOut=50000;
 
     private String ip;
+
+    private String responseTimeOut;
 }

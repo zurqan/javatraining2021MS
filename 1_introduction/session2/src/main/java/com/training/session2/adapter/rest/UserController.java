@@ -3,10 +3,7 @@ package com.training.session2.adapter.rest;
 import com.training.session2.adapter.rest.dto.UserDTO;
 import com.training.session2.model.User;
 import com.training.session2.adaper.repository.UserManagement;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.function.Function;
 
@@ -20,6 +17,21 @@ public class UserController {
 
         System.out.println("userManagement.getClass().getSimpleName() = " + userManagement.getClass().getSimpleName());
         this.userManagement = userManagement;
+    }
+
+    @PostMapping
+    public String savingUser(@RequestBody UserDTO user){
+
+        return userManagement.save(toUserModel().apply(user));
+    }
+
+    private  Function<UserDTO,User> toUserModel() {
+
+        return dto->User
+                .builder()
+                .firstName(dto.getName())
+                .age(dto.getUserAge())
+                .build();
     }
 
     @GetMapping("/{id}")

@@ -7,4 +7,6 @@ import java.util.Optional;
 public interface UserManagement {
 
     public Optional<User> byId(String id);
+
+    String save(User user);
 }

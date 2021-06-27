@@ -3,12 +3,11 @@ package com.training.session2.adaper.repository.impl;
 
 import com.training.session2.adaper.repository.UserManagement;
 import com.training.session2.model.User;
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
 //@Component
 //@Profile("in-memory")
@@ -29,5 +28,12 @@ class UserManagementInMemoryDB implements UserManagement {
     public Optional<User> byId(String id) {
 
         return Optional.ofNullable(users.get(id));
+    }
+
+    @Override
+    public String save(User user) {
+        String userId = UUID.randomUUID().toString();
+        users.put(userId,user);
+        return userId;
     }
 }

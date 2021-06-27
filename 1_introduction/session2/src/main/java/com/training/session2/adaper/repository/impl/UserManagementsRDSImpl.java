@@ -13,4 +13,9 @@ import java.util.Optional;
         //get user from DB
         return Optional.empty();
     }
-}
+
+     @Override
+     public String save(User user) {
+         return null;
+     }
+ }
