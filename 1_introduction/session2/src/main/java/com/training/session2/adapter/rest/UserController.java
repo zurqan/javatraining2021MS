@@ -5,7 +5,10 @@ import com.training.session2.model.User;
 import com.training.session2.adaper.repository.UserManagement;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/users")
@@ -20,18 +23,19 @@ public class UserController {
     }
 
     @PostMapping
-    public String savingUser(@RequestBody UserDTO user){
+    public String savingUser(@RequestBody @Valid UserDTO user){
 
         return userManagement.save(toUserModel().apply(user));
     }
 
-    private  Function<UserDTO,User> toUserModel() {
+    @PutMapping("/{id}")
+    public boolean updating(@PathVariable String id,@RequestBody UserDTO userDTO){
+        return userManagement.update(toUserModel().apply(userDTO));
+    }
 
-        return dto->User
-                .builder()
-                .firstName(dto.getName())
-                .age(dto.getUserAge())
-                .build();
+    @DeleteMapping("/{id}")
+    public boolean removing(@PathVariable String id){
+        return userManagement.remove(id);
     }
 
     @GetMapping("/{id}")
@@ -43,6 +47,14 @@ public class UserController {
                 .orElseThrow(() -> new RuntimeException("Not found"));
     }
 
+    @GetMapping
+    public List<UserDTO> users(){
+        return userManagement
+                .all()
+                .stream()
+                .map(toUserDto())
+                .collect(Collectors.toList());
+    }
     private Function<User, UserDTO> toUserDto() {
         return user -> UserDTO
                 .builder()
@@ -50,6 +62,16 @@ public class UserController {
                 .birthDay(user.getBirthDay())
                 .id(user.getId())
                 .name(user.getFirstName()+" "+user.getLastName())
+                .build();
+    }
+
+    private  Function<UserDTO,User> toUserModel() {
+
+        return dto->User
+                .builder()
+                .firstName(dto.getName())
+                .age(dto.getUserAge())
+                .id(dto.getId())
                 .build();
     }
 
