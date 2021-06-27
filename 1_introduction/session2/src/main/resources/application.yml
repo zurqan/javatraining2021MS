@@ -1,0 +1,16 @@
+server:
+  port: 5050
+
+
+com:
+  training:
+    integration:
+      time-out: 40000
+      ip: 127.0.0.1
+
+spring:
+  profiles:
+    active:
+      - in-memory
+      - dev
+#      - qa
