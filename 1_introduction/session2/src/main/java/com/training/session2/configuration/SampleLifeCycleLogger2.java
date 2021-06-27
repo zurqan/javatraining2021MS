@@ -11,27 +11,31 @@ import javax.annotation.PostConstruct;
 import java.util.Arrays;
 
 @Component
-public class SampleLifeCycleLogger implements SmartLifecycle, ApplicationContextAware {
+public class SampleLifeCycleLogger2 implements SmartLifecycle, ApplicationContextAware {
     private boolean started = false;
     private ApplicationContext applicationContext;
+
 //    @PostConstruct
     public void test(){
-        System.out.println("^^^^^^^");
+        System.out.println("&&&&&&&&");
         Arrays.stream(applicationContext
                 .getBeanDefinitionNames())
                 .map(name->new Tuple(name,applicationContext.getBean(name)))
                 .filter(t->t._2.getClass().getName().contains("com.training"))
                 .forEach(System.out::println);
-        System.out.println("^^^^^^^");
+        System.out.println("&&&&&&&&");
 
     }
     @Override
     public void start() {
+        System.out.println("*******************");
 //        Arrays.stream(applicationContext
 //                .getBeanDefinitionNames())
 //                .map(name->new Tuple(name,applicationContext.getBean(name)))
 //                .filter(t->t._2.getClass().getName().contains("com.training"))
 //                .forEach(System.out::println);
+        System.out.println("*******************");
+
         started = true;
     }
 
