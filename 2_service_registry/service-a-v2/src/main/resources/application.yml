@@ -1,0 +1,6 @@
+server:
+  port: 2121
+
+spring:
+  application:
+    name: service-a-v2
