@@ -1,0 +1,9 @@
+
+server:
+  port: 4444
+
+spring:
+  application:
+    name: service-b
+
+
