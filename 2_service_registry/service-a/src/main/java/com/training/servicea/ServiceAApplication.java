@@ -5,6 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.cloud.client.discovery.composite.CompositeDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
@@ -30,6 +31,16 @@ public class ServiceAApplication {
     @Bean
     CommandLineRunner test(DiscoveryClient discoveryClient){
 	    return args->{
+
+	        if(discoveryClient instanceof CompositeDiscoveryClient){
+                ((CompositeDiscoveryClient) discoveryClient)
+                        .getDiscoveryClients()
+                        .stream()
+                        .map(d->d.getClass().getSimpleName())
+                        .forEach(System.out::println);
+            }
+
+            System.out.println("discoveryClient.getClass() = " + discoveryClient.getClass());
             List<ServiceInstance> instances = discoveryClient.getInstances("service-b");
 
             instances
