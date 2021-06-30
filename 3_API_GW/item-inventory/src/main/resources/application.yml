@@ -4,3 +4,11 @@ server:
 spring:
   application:
     name: item-inventory
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - "*"

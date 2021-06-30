@@ -1,12 +1,11 @@
-package com.training.iteminventory.adapter.rest.dto;
+package com.training.iteminventory.model;
 
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Builder
-public class ItemDTO {
-
+public class Item {
     private String itemId;
 
     private double price;
