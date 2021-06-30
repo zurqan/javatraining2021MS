@@ -1,5 +1,6 @@
 package com.training.servicea.adapter.rest;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,9 @@ public class CallerController {
 
     private final RestTemplate restTemplate;
 
+    @Value("${server.port:8080}")
+    private int port;
+
     public CallerController(RestTemplate restTemplate) {
 
         System.out.println("CallerController.CallerController");
@@ -20,6 +24,7 @@ public class CallerController {
 
     @GetMapping
     public String greeting(){
+        System.out.println("port = " + port);
         String bRespo = restTemplate.getForObject("http://service-b/greeting", String.class);
         return "Response from b "+bRespo;
     }
