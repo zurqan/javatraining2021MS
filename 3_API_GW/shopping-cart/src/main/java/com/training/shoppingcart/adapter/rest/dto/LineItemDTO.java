@@ -1,4 +1,4 @@
-package com.training.shoppingcart.adapter.rest.in.dto;
+package com.training.shoppingcart.adapter.rest.dto;
 
 import lombok.Data;
 

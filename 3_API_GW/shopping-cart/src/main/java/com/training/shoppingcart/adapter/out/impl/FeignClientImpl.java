@@ -1,6 +1,6 @@
-package com.training.shoppingcart.adapter.rest.out.impl;
+package com.training.shoppingcart.adapter.out.impl;
 
-import com.training.shoppingcart.adapter.rest.out.InventoryItemClient;
+import com.training.shoppingcart.adapter.out.InventoryItemClient;
 import com.training.shoppingcart.model.InventoryItem;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;

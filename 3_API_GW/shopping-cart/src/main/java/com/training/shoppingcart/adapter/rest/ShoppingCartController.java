@@ -1,6 +1,6 @@
-package com.training.shoppingcart.adapter.rest.in;
+package com.training.shoppingcart.adapter.rest;
 
-import com.training.shoppingcart.adapter.rest.in.dto.LineItemDTO;
+import com.training.shoppingcart.adapter.rest.dto.LineItemDTO;
 import com.training.shoppingcart.model.ShoppingCart;
 import com.training.shoppingcart.service.ShoppingCartService;
 import org.springframework.web.bind.annotation.*;

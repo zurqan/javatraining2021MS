@@ -1,14 +1,13 @@
 package com.training.shoppingcart.service;
 
 import com.training.shoppingcart.adapter.repository.ShoppingCartRepo;
-import com.training.shoppingcart.adapter.rest.out.InventoryItemClient;
+import com.training.shoppingcart.adapter.out.InventoryItemClient;
 import com.training.shoppingcart.model.InventoryItem;
 import com.training.shoppingcart.model.LineItem;
 import com.training.shoppingcart.model.ShoppingCart;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;

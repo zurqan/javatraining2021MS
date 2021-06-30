@@ -1,7 +1,6 @@
-package com.training.shoppingcart.adapter.rest.out;
+package com.training.shoppingcart.adapter.out;
 
 import com.training.shoppingcart.model.InventoryItem;
-import org.springframework.cloud.openfeign.FeignClient;
 
 public interface InventoryItemClient {
 
