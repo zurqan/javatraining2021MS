@@ -1,0 +1,16 @@
+com:
+  user:
+    errors:
+      exception-messages:
+        UserNotFoundException:
+          code: 1001
+          statusCode: 404
+          message:
+            AR: المستخدم غير موجود
+            EN: User not found!
+        CanNotConnectToDataBase:
+          code: 9001
+          statusCode: 500
+          message:
+            AR: لا يمكن الاتصال مع قاعدة البيانات
+            EN: Unable to connect to DB
