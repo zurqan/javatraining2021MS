@@ -28,6 +28,14 @@ public class ItemController {
     public ItemDTO loadingItem(@PathVariable String itemId){
 
         System.out.println("serverPort = " + serverPort);
+
+        if(itemId.equals("1001")){
+            try {
+                Thread.sleep(10000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
         return itemService
                 .getItem(itemId)
                 .map(toDTO())
