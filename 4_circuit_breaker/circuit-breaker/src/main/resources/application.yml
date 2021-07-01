@@ -1,3 +1,16 @@
 
 server:
   port: 1010
+
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      hello:
+        waitDurationInOpenState: 20s
+        minimumNumberOfCalls: 5
+
+  timelimiter:
+    instances:
+      hello:
+        timeoutDuration: 5s
