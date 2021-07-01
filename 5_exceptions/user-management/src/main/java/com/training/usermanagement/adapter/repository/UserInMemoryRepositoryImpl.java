@@ -25,4 +25,10 @@ public class UserInMemoryRepositoryImpl implements UserRepository {
         }
         return Optional.ofNullable(users.get(userId));
     }
+
+    @Override
+    public String save(User user) {
+         users.put(user.getId(),user);
+        return user.getId();
+    }
 }

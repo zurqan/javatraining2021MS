@@ -20,7 +20,7 @@ public class UserServiceExceptionsHandler {
 
     @ExceptionHandler(AbstractUserServiceException.class)
     public ResponseEntity<Object> handle(AbstractUserServiceException exc){
-
+        exc.printStackTrace();
         ErrorInfo errorInfo = userServiceExceptionMsgs.getExceptionMessages().getOrDefault(exc.getClass().getSimpleName(),DEFAULT_ERROR_INFO);
 
         return new ResponseEntity(errorInfo,new HttpHeaders(), errorInfo.getStatusCode());
@@ -33,6 +33,8 @@ public class UserServiceExceptionsHandler {
 
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<Object> handle(RuntimeException exc){
+        exc.printStackTrace();
+
         ErrorInfo errorInfo = userServiceExceptionMsgs.getExceptionMessages().getOrDefault(RuntimeException.class.getSimpleName(),DEFAULT_ERROR_INFO);
         return new ResponseEntity<>(errorInfo, new HttpHeaders(),errorInfo.getStatusCode());
     }

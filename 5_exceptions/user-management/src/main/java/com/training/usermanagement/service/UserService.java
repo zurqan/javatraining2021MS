@@ -20,6 +20,6 @@ public class UserService {
     }
 
     public String register(User user){
-        return null;
+        return userRepository.save(user);
     }
 }
