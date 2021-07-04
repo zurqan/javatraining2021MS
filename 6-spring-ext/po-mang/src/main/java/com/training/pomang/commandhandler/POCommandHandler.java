@@ -8,7 +8,8 @@ import org.springframework.stereotype.Component;
 public class POCommandHandler {
 
     @CommandHandler
-    public String createPO(SubmitPOCommand submitPOCommand){
+//    public String createPO(SubmitPOCommand submitPOCommand,String a){
+    public String createPO(SubmitPOCommand submitPOCommand ){
         System.out.println("POCommandHandler.createPO");
 
         return "";

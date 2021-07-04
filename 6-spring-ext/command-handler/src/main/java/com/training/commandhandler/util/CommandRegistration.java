@@ -1,6 +1,7 @@
 package com.training.commandhandler.util;
 
 import com.training.commandhandler.annotation.CommandHandler;
+import com.training.commandhandler.exception.CommandHandlerRegistrationException;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.util.ReflectionUtils;
@@ -21,7 +22,7 @@ public class CommandRegistration implements BeanPostProcessor {
 
     private void checkAndRegisterCommandHandler(Object bean, String beanName) {
 
-        System.out.println("beanName = " + beanName);
+        System.out.println("&&&&&&beanName = " + beanName);
         ReflectionUtils
                 .doWithMethods(bean.getClass(),(method -> {
                     //check each method in the bean class
@@ -33,7 +34,7 @@ public class CommandRegistration implements BeanPostProcessor {
                     //this method is a command handler method
                     Class<?>[] parameterTypes = method.getParameterTypes();
                     if(parameterTypes==null || parameterTypes.length>1){
-                        return;
+                        throw new CommandHandlerRegistrationException("Command Handler should have one parameter",method.getName(),bean.getClass(), beanName);
                     }
 
                     //this method have one parameter
@@ -41,7 +42,7 @@ public class CommandRegistration implements BeanPostProcessor {
                     System.out.println("=============================");
                     System.out.println("bean.getClass().getSimpleName() = " + bean.getClass().getSimpleName());
                     System.out.println("beanName = " + beanName);
-                    System.out.println("method.getName() = " + method.getName());
+                    System.out.println("method.getMethodName() = " + method.getName());
                     System.out.println("commandClassType = " + commandClassType);
                     System.out.println("=============================");
 
