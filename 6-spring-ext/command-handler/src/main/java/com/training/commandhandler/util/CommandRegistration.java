@@ -1,43 +1,20 @@
-package com.training.usermanagement.commandhandler;
+package com.training.commandhandler.util;
 
-import com.training.usermanagement.command.CommandHandler;
-import com.training.usermanagement.exception.CommandHandlerNotFoundForClass;
-import com.training.usermanagement.util.Tuple;
+import com.training.commandhandler.annotation.CommandHandler;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
-import org.springframework.context.SmartLifecycle;
-import org.springframework.stereotype.Component;
 import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-@Component
-public class DefaultCommandBus implements CommandBus, BeanPostProcessor
-//, SmartLifecycle
-{
-    //Map < Command Class type, Tuple <Method related to the command, Bean of that method>>
+public class CommandRegistration implements BeanPostProcessor {
     private Map<Class, Tuple<Method,Object>> allHandlers = new ConcurrentHashMap<>();
-
-
-    @Override
-    public <U> U send(Command command) {
-
-        Tuple<Method, Object> methodObjectTuple = allHandlers.get(command.getClass());//later check if sub-class is provided
-
-        if(methodObjectTuple==null){
-            throw new CommandHandlerNotFoundForClass(command.getClass().getName());
-        }
-
-        return (U)ReflectionUtils.invokeMethod(methodObjectTuple._1,methodObjectTuple._2,command);
-    }
-
 
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
         //check if bean have method annotated with @CommmandHandler
-
         checkAndRegisterCommandHandler(bean,beanName);
         return bean;
     }
@@ -72,5 +49,11 @@ public class DefaultCommandBus implements CommandBus, BeanPostProcessor
                     allHandlers.put(commandClassType,new Tuple<>(method,bean));
                 }));
 
+    }
+
+
+
+    public Tuple<Method, Object> get(Class<? extends Command> aClass) {
+        return allHandlers.get(aClass);
     }
 }

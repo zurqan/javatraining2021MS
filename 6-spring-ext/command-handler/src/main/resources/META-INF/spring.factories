@@ -1,0 +1,10 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.training.commandhandler.configuration.CommandBusAutoConfiguration
+
+
+org.springframework.context.ApplicationContextInitializer=\
+com.training.commandhandler.configuration.ApplicationContextInitializerHandler
+
+#org.springframework.boot.diagnostics.FailureAnalyzer=\
+
+#org.springframework.context.ApplicationListener=\
