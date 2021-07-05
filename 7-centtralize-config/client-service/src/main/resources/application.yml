@@ -1,0 +1,16 @@
+server:
+  port: 7171
+
+spring:
+  config:
+    import: configserver:http://localhost:8888
+  application:
+    name: config-client
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - "*"
