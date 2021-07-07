@@ -7,7 +7,7 @@ import com.rabbitmq.client.ConnectionFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-//@Component
+@Component
 public class Sender implements CommandLineRunner {
 
     private final static String EXCHANGE_NAME="ab-training-exchange";
@@ -25,9 +25,16 @@ public class Sender implements CommandLineRunner {
             channel.queueDeclare(QUEUE_NAME,true,false,false,null);
             channel.queueBind(QUEUE_NAME,EXCHANGE_NAME,ROUTING_KEY);
             AMQP.BasicProperties.Builder builder = new AMQP.BasicProperties.Builder();
-            channel.basicPublish(EXCHANGE_NAME,ROUTING_KEY,null,"Hello World latest!".getBytes());
+
+            builder = builder.userId("mohammd");
+
+            channel.basicPublish(EXCHANGE_NAME,ROUTING_KEY,builder.build(),"Hello World latest!".getBytes());
+            channel.basicPublish(EXCHANGE_NAME,ROUTING_KEY,builder.deliveryMode(2).build(),"Hello World latest!".getBytes());
+
         }catch (Exception e){
             e.printStackTrace();
         }
+
+
     }
 }

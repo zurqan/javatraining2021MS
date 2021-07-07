@@ -7,7 +7,7 @@ import com.rabbitmq.client.ConnectionFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class DefaultSender implements CommandLineRunner {
 
     private final static String EXCHANGE_NAME="ab-training-fanout-exchange";
