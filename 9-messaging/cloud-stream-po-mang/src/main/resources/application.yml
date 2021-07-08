@@ -1,0 +1,7 @@
+spring:
+  cloud:
+    stream:
+      bindings:
+        user-registered:
+          destination: user-registered
+          group: po-group

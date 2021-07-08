@@ -1,0 +1,12 @@
+spring:
+  cloud:
+    function:
+      definition: upper;consume;upper|consume;
+    stream:
+      bindings:
+        upperconsume-in-0:
+          destination: up-ex1
+        consume-in-0:
+          destination: upper-out-0
+        upper-in-0:
+          destination: upper-example

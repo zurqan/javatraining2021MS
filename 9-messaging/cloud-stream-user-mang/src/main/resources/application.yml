@@ -1,0 +1,9 @@
+server:
+  port: 1122
+
+spring:
+  cloud:
+    stream:
+      bindings:
+        USER_REGISTERED_EVENT:
+          destination: user-registered
