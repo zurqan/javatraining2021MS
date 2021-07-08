@@ -1,9 +1,6 @@
 package com.training.rabbitmqfirstsample;
 
-import com.rabbitmq.client.AMQP;
-import com.rabbitmq.client.Channel;
-import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +16,6 @@ public class Sender implements CommandLineRunner {
         ConnectionFactory connectionFactory = new ConnectionFactory();
 
         try(Connection connection= connectionFactory.newConnection()){
-
             Channel channel = connection.createChannel();
             channel.exchangeDeclare(EXCHANGE_NAME,"direct",true);
             channel.queueDeclare(QUEUE_NAME,true,false,false,null);

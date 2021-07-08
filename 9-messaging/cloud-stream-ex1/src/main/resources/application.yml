@@ -1,0 +1,20 @@
+spring:
+  cloud:
+    stream:
+#      rabbit:
+#        bindings:
+#          hello-cloud-ex1:
+#            consumer:
+#              exchangeType: "topic"
+#              bindingRoutingKey: "hello.*"
+#          hello-cloud:
+#           producer:
+#             exchangeType: "topic"
+      bindings:
+        hello-cloud-ex1:
+          destination: hello-cloud-ex-3
+          group: hello-group
+        hello-cloud-ex2:
+          destination: hello-cloud-ex-3
+        hello-cloud:
+          destination: hello-cloud-ex-3
