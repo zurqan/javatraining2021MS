@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+  db1:
+    image: mysql:latest
+    container_name: db_1
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: test
+
+    volumes:
+      - ./data:/var/lib/mysql
+    networks:
+      - n1
+  db2:
+    image: mysql:latest
+    container_name: db_client
+    depends_on:
+      - db1
+    command: mysql -uroot -p1234 -hdb1
+    networks:
+      - n1
+
+networks:
+  n1:
+  n2:
+

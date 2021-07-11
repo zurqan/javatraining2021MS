@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  sp:
+    ports:
+      - 7070:9090
+    build:
+      dockerfile: Dockerfile
+      context: ./
+
+    container_name: greeting
+    environment:
+      - "spring.profiles.active=dev"
