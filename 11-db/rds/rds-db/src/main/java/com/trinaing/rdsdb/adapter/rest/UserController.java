@@ -42,6 +42,13 @@ public class UserController {
 
     }
 
+    @GetMapping("/search-by-name")
+    public Page<UserDTO> loadingByName(@RequestParam String name,int  pageNo,int pageSize){
+        return userService.loadAllByName(name,PageRequest.of(pageNo,pageSize))
+                .map(toUserDto());
+
+    }
+
     @DeleteMapping("/{id}")
     public void removingUser(@PathVariable Long id){
         userService.unregisterUser(id);

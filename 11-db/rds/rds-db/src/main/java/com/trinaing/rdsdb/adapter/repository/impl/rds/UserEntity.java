@@ -15,7 +15,7 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class UserEntity {
+public class UserEntity  {
 
     @Id
     @GeneratedValue

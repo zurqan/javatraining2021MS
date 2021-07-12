@@ -36,6 +36,10 @@ public class UserService {
         return userRepository.loadUsers(pageable);
     }
 
+    public Page<User> loadAllByName(String name,Pageable pageable){
+        return userRepository.searchUserByName(name,pageable);
+    }
+
     public void unregisterUser(Long id){
         userRepository.removeUser(id);
     }
