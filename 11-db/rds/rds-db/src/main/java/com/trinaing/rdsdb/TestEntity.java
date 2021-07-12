@@ -1,3 +1,4 @@
+/*
 package com.trinaing.rdsdb;
 
 import com.trinaing.rdsdb.adapter.repository.UserRepository;
@@ -34,3 +35,4 @@ public class TestEntity implements CommandLineRunner {
 
     }
 }
+*/

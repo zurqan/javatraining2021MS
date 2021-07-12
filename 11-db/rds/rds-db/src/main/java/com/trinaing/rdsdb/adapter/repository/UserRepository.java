@@ -15,6 +15,10 @@ public interface UserRepository {
 
     public List<User> findAll();
 
+    public Page<User> loadUsers(Pageable pageable);
+
     public Page<User> searchUserByName(String name, Pageable pageable);
+
+    public void removeUser(Long id);
 
 }

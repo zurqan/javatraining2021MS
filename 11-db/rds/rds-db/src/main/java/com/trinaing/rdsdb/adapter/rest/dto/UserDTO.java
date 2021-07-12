@@ -1,31 +1,23 @@
-package com.trinaing.rdsdb.adapter.repository.impl;
+package com.trinaing.rdsdb.adapter.rest.dto;
 
+import com.trinaing.rdsdb.model.Email;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-
-@Entity
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
-public class UserEntity {
+public class UserDTO {
 
-    @Id
-    @GeneratedValue
     private Long id;
 
     private String name;
 
     private int age;
 
-    @Column(unique = true)
     private String email;
 
     private String city;

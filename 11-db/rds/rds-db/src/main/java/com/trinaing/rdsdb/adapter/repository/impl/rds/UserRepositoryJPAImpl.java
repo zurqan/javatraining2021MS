@@ -1,4 +1,4 @@
-package com.trinaing.rdsdb.adapter.repository.impl;
+package com.trinaing.rdsdb.adapter.repository.impl.rds;
 
 import com.trinaing.rdsdb.adapter.repository.UserRepository;
 import com.trinaing.rdsdb.model.Email;
@@ -15,9 +15,9 @@ import java.util.stream.Collectors;
 @Component
 public class UserRepositoryJPAImpl implements UserRepository {
 
-    private final UserRepositoryJPASpringImpl userRepositoryJPASpring;
+    private final UserRepositorySpringImpl userRepositoryJPASpring;
 
-    public UserRepositoryJPAImpl(UserRepositoryJPASpringImpl userRepositoryJPASpring) {
+    public UserRepositoryJPAImpl(UserRepositorySpringImpl userRepositoryJPASpring) {
         this.userRepositoryJPASpring = userRepositoryJPASpring;
     }
 
@@ -39,11 +39,21 @@ public class UserRepositoryJPAImpl implements UserRepository {
     }
 
     @Override
+    public Page<User> loadUsers(Pageable pageable) {
+        return userRepositoryJPASpring.findAll(pageable).map(toModel());
+    }
+
+    @Override
     public Page<User> searchUserByName(String name, Pageable pageable) {
 
         return userRepositoryJPASpring
                 .findByName(name,pageable)
                 .map(toModel());
+    }
+
+    @Override
+    public void removeUser(Long id) {
+        userRepositoryJPASpring.deleteById(id);
     }
 
     private UserEntity toEntity(User user) {
