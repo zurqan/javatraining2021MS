@@ -1,15 +1,16 @@
 package com.training.axonsample1.adapter.rest;
 
 import com.training.axonsample1.adapter.rest.dto.CreatingAccountDTO;
-import com.training.axonsample1.common.commands.CreateAccountCommand;
-import com.training.axonsample1.common.commands.DepositAmountCommand;
+import com.training.axonsample1.common.commands.*;
+import com.training.axonsample1.common.query.TotalAccountCountByTypeQuery;
+import com.training.axonsample1.common.query.TotalAccountCountQuery;
+import com.training.axonsample1.model.AccountType;
 import org.axonframework.commandhandling.gateway.CommandGateway;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.axonframework.queryhandling.QueryGateway;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 
 @RestController
 @RequestMapping("/accounts")
@@ -17,13 +18,16 @@ public class AccountController {
 
     private final CommandGateway commandGateway;
 
-    public AccountController(CommandGateway commandGateway) {
+    private final QueryGateway queryGateway;
+
+    public AccountController(CommandGateway commandGateway, QueryGateway queryGateway) {
         this.commandGateway = commandGateway;
+        this.queryGateway = queryGateway;
     }
 
 
     @PostMapping
-    public String creatingAccount(CreatingAccountDTO creatingAccountDTO){
+    public String creatingAccount(@RequestBody CreatingAccountDTO creatingAccountDTO){
         CreateAccountCommand createAccountCommand = CreateAccountCommand
                 .builder()
                 .id(UUID.randomUUID().toString())
@@ -37,8 +41,31 @@ public class AccountController {
     }
 
     @PatchMapping("/{id}/deposit")
-    public void depositingAmount(DepositAmountCommand depositAmountCommand){
+    public void depositingAmount( @RequestBody DepositAmountCommand depositAmountCommand){
         commandGateway.send(depositAmountCommand);
+    }
+    @PatchMapping("/{id}/withdraw")
+    public void withdrawAmount(@RequestBody WithdrawAmountCommand withdrawAmountCommand){
+        commandGateway.sendAndWait(withdrawAmountCommand);
+    }
+
+    @PatchMapping("/{id}/inactivate")
+    public void inactivatingAccount(@PathVariable String id){
+        commandGateway.send(new InactivateAccountCommand(id));
+    }
+
+    @PatchMapping("/{id}/activate")
+    public void activatingAccount(@PathVariable String id){
+        commandGateway.send(new ActivateAccountCommand(id));
+    }
+
+    @GetMapping("/count")
+    public Integer gettingTotalAccountCount() throws ExecutionException, InterruptedException {
+        return queryGateway.query(new TotalAccountCountQuery(), Integer.class).get();
+    }
+    @GetMapping("/{accountType}/count")
+    public Integer gettingTotalAccountCount(@PathVariable AccountType accountType) throws ExecutionException, InterruptedException {
+        return queryGateway.query(new TotalAccountCountByTypeQuery(accountType), Integer.class).get();
     }
 
 }
