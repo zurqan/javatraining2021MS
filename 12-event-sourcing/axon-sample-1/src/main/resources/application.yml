@@ -1,8 +1,13 @@
+
 spring:
+
   application:
     name: first-sample
   jpa:
-    generate-ddl: true
+    hibernate:
+      ddl-auto: validate
+    generate-ddl: false
+
   datasource:
     username: training
     password: 1234
