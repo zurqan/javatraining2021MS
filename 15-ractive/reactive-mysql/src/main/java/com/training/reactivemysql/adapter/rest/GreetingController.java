@@ -23,6 +23,7 @@ public class GreetingController {
     }
 
     @GetMapping("/greetings/{name}")
+
     public ResponseEntity<Flux<String>> greetings(@PathVariable String name) {
         return
                 ok()
